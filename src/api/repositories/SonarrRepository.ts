@@ -35,17 +35,13 @@ export class SonarrRepository {
 
     public async findPaths() {
         let settings = await this.settingsDBRepository.findAll();
-        return requestify.get(`http://${settings.hostname}:${settings.port}/api/rootfolder?apikey=${settings.apiKey}`).then((res) => {
-            res.getBody();
-            return res.body;
-        });
+        let response = await requestify.get(`http://${settings.hostname}:${settings.port}/api/rootfolder?apikey=${settings.apiKey}`)
+        return response.getBody();
     }
 
     public async findProfiles() {
         let settings = await this.settingsDBRepository.findAll();
-        return requestify.get(`http://${settings.hostname}:${settings.port}/api/profile?apikey=${settings.apiKey}`).then((res) => {
-            res.getBody();
-            return res.body;
-        });;
+        let response = await requestify.get(`http://${settings.hostname}:${settings.port}/api/profile?apikey=${settings.apiKey}`);
+        return response.getBody();
     }
 }

@@ -16,7 +16,7 @@ export class SonarrController implements interfaces.Controller {
 
     @httpGet("/profiles")
     private async profiles(): Promise<any> {
-        let paths = await this.sonarrService.findProfiles();
-        return paths;
+        let profiles = await this.sonarrService.findProfiles();
+        return profiles;
     }
 }
