@@ -1,0 +1,18 @@
+{
+    "compilerOptions": {
+      "module": "commonjs",
+      "noImplicitAny": false,
+      "removeComments": true,
+      "experimentalDecorators": true,
+      "preserveConstEnums": true,
+      "outDir": "build",
+      "strictNullChecks": true,
+      "sourceMap": true,
+      "allowJs": true,
+      "target": "es6"
+    },
+    "include": [
+      "src/api/**/*"
+    ],
+    "exclude": []
+  }
