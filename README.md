@@ -52,6 +52,6 @@ Enter in your hostname, port, and api key for you local sonarr instance in the s
 3. Select the list type
 4. Select the quality profile you want to use for this list
 5. Select the folder you want Sonarr to store your shows
-6. Enter in the trakt.tv username
+6. Enter in the trakt.tv username for the watchlist
 
 ![alt text](https://i.imgur.com/3epaq74.png "List tab")
