@@ -80,7 +80,7 @@ export class SonarrService {
         try {
             await this.sonarrRepository.updateSeries(show);
         } catch (error) {
-            console.log(`Failed to add ${show.title}: ${error}`);
+            console.log(`Failed to add ${show.title}: ${JSON.stringify(error)}`);
         }
 
         return show;
@@ -102,11 +102,11 @@ export class SonarrService {
         let showsToAdd = new Array<any>();
 
         for (let show of series) {
-            let showInSonarr = currentShows.find(series => series.tvdbId === show.show.ids.tvdb);
+            let showInSonarr = currentShows.find(series => series.tvdbId === show.ids.tvdb);
             if (!showInSonarr) {
-                let results = await this.sonarrRepository.searchSeries(show.show.title);
+                let results = await this.sonarrRepository.searchSeries(show.title);
                 if (results && results.length > 0) {
-                    let firstShow = results.find(s => s.tvdbId === show.show.ids.tvdb);
+                    let firstShow = results.find(s => s.tvdbId === show.ids.tvdb);
                     await this.createSeasons(Object.assign(firstShow, {
                         qualityProfileId: settings.profile,
                         path: `${settings.folder}${firstShow.title}`

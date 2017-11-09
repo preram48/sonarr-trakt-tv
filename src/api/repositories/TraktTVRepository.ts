@@ -51,4 +51,39 @@ export class TraktTVRepository {
 
        return watchlist;
     }
+
+    public async findTrendingShows(years: string = '', ratings: string = '0-100', limit: number = 100): Promise<any> {
+        let shows = await this.client.shows.trending({
+            limit: limit,
+            ratings: ratings,
+            years: years
+        });
+
+       return shows;
+    }
+
+    public async findPopularShows(years: string = '', ratings: string = '0-100', limit: number = 100): Promise<any> {
+        let shows = await this.client.shows.popular({
+            limit: limit,
+            ratings: ratings,
+            years: years
+        });
+
+       return shows;
+    }
+
+    public async findCustomListShows(username: string, listName: string, years: string = '', ratings: string = '0-100', limit: number = 100): Promise<any> {
+        listName = listName.replace(' ', '-');
+        let shows = await this.client.users.list.items.get({
+            limit: limit,
+            ratings: ratings,
+            years: years,
+            username: username,
+            id: listName,
+            type: 'shows'
+        });
+
+       return shows;
+    }
+
 }

@@ -185,7 +185,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/list-dialog/list-dialog.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div style=\"text-align: right;\">\n  <button mat-button (click)=\"close()\">\n    <mat-icon>close</mat-icon>\n  </button>\n</div>\n<form novalidate style=\"text-align: center\" #listForm=\"ngForm\">\n  <mat-form-field>\n    <input matInput placeholder=\"Name\" required [(ngModel)]=\"listItem.name\" name=\"name\">\n  </mat-form-field>\n  <mat-form-field>\n    <mat-select placeholder=\"List Type\" [(ngModel)]=\"listItem.listType\" name=\"list\" required>\n      <mat-option *ngFor=\"let item of trakList\" [value]=\"item.value\">\n        {{ item.viewValue }}\n      </mat-option>\n    </mat-select>\n  </mat-form-field>\n  <mat-form-field>\n    <mat-select placeholder=\"Quality Profile\" [(ngModel)]=\"listItem.profile\" name=\"profile\" required>\n      <mat-option *ngFor=\"let profile of profiles\" [value]=\"profile.id\">\n        {{ profile.name }}\n      </mat-option>\n    </mat-select>\n  </mat-form-field>\n  <mat-form-field>\n    <mat-select placeholder=\"Folder\" [(ngModel)]=\"listItem.folder\" name=\"folder\" required>\n      <mat-option *ngFor=\"let folder of folders\" [value]=\"folder.path\">\n        {{ folder.path }}\n      </mat-option>\n    </mat-select>\n  </mat-form-field>\n  <mat-form-field>\n    <input matInput placeholder=\"Username\" [(ngModel)]=\"listItem.username\" name=\"username\" required>\n  </mat-form-field>\n  <div>\n    <button (click)=\"testList(listItem)\" mat-raised-button color=\"primary\" [disabled]=\"listForm.invalid\">Test</button>\n    <button (click)=\"saveList(listItem)\" mat-raised-button color=\"primary\" [disabled]=\"listForm.invalid\">Save</button>\n  </div>\n  <div class=\"primary\" *ngIf=\"foundWatchlistResults\">\n    Watchlist call was successful\n  </div>\n  <div class=\"primary\" *ngIf=\"watchlistError\">\n    No results were returned\n  </div>\n</form>"
+module.exports = "<div style=\"text-align: right;\">\n  <button mat-button (click)=\"close()\">\n    <mat-icon>close</mat-icon>\n  </button>\n</div>\n<form novalidate style=\"text-align: center\" #listForm=\"ngForm\">\n  <mat-form-field>\n    <input matInput placeholder=\"Name\" required [(ngModel)]=\"listItem.name\" name=\"name\">\n  </mat-form-field>\n  <mat-form-field>\n    <mat-select placeholder=\"List Type\" [(ngModel)]=\"listItem.listType\" name=\"list\" required>\n      <mat-option *ngFor=\"let item of trakList\" [value]=\"item.value\">\n        {{ item.viewValue }}\n      </mat-option>\n    </mat-select>\n  </mat-form-field>\n  <mat-form-field>\n    <mat-select placeholder=\"Quality Profile\" [(ngModel)]=\"listItem.profile\" name=\"profile\" required>\n      <mat-option *ngFor=\"let profile of profiles\" [value]=\"profile.id\">\n        {{ profile.name }}\n      </mat-option>\n    </mat-select>\n  </mat-form-field>\n  <mat-form-field>\n    <mat-select placeholder=\"Folder\" [(ngModel)]=\"listItem.folder\" name=\"folder\" required>\n      <mat-option *ngFor=\"let folder of folders\" [value]=\"folder.path\">\n        {{ folder.path }}\n      </mat-option>\n    </mat-select>\n  </mat-form-field>\n  <mat-form-field *ngIf=\"listItem.listType === 1 || listItem.listType === 4\">\n    <input matInput placeholder=\"Username\" [(ngModel)]=\"listItem.username\" name=\"username\" required>\n  </mat-form-field>\n  <mat-form-field  *ngIf=\"listItem.listType === 4\">\n    <input matInput placeholder=\"List Name\" [(ngModel)]=\"listItem.listName\" name=\"years\" required>\n  </mat-form-field>\n  <mat-form-field>\n    <input matInput placeholder=\"Rating Range (0-100)\" [(ngModel)]=\"listItem.score\" name=\"score\">\n  </mat-form-field>\n  <mat-form-field>\n    <input matInput placeholder=\"Limit (0-100)\" [(ngModel)]=\"listItem.limit\" name=\"limit\">\n  </mat-form-field>\n  <mat-form-field>\n    <input matInput placeholder=\"Years\" [(ngModel)]=\"listItem.years\" name=\"years\">\n  </mat-form-field>\n  <div>\n    <button (click)=\"testList(listItem)\" mat-raised-button color=\"primary\" [disabled]=\"listForm.invalid\">Test</button>\n    <button (click)=\"saveList(listItem)\" mat-raised-button color=\"primary\" [disabled]=\"listForm.invalid\">Save</button>\n  </div>\n  <div class=\"primary\" *ngIf=\"foundWatchlistResults\">\n    Watchlist call was successful\n  </div>\n  <div class=\"primary\" *ngIf=\"watchlistError\">\n    No results were returned\n  </div>\n</form>"
 
 /***/ }),
 
@@ -199,6 +199,7 @@ module.exports = "<div style=\"text-align: right;\">\n  <button mat-button (clic
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__list_service__ = __webpack_require__("../../../../../src/app/list.service.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__sonarr_service__ = __webpack_require__("../../../../../src/app/sonarr.service.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__trakt_service__ = __webpack_require__("../../../../../src/app/trakt.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__shared_enums__ = __webpack_require__("../../../../../src/app/shared/enums/index.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -211,6 +212,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
+
 
 
 
@@ -235,8 +237,17 @@ var ListDialogComponent = (function () {
         var _this = this;
         this.listItem = this.data;
         this.trakList = [{
-                value: 1,
-                viewValue: 'Watchlist'
+                value: __WEBPACK_IMPORTED_MODULE_5__shared_enums__["a" /* ListTypes */].Watchlist,
+                viewValue: 'Watchlist',
+            }, {
+                value: __WEBPACK_IMPORTED_MODULE_5__shared_enums__["a" /* ListTypes */].Popular,
+                viewValue: 'Popular',
+            }, {
+                value: __WEBPACK_IMPORTED_MODULE_5__shared_enums__["a" /* ListTypes */].Trending,
+                viewValue: 'Trending',
+            }, {
+                value: __WEBPACK_IMPORTED_MODULE_5__shared_enums__["a" /* ListTypes */].Custom,
+                viewValue: 'Custom',
             }];
         this.sonarrService.fetchPaths().subscribe(function (folders) { return _this.folders = folders; });
         this.sonarrService.fetchProfiles().subscribe(function (profiles) { return _this.profiles = profiles; });
@@ -264,7 +275,22 @@ var ListDialogComponent = (function () {
         var _this = this;
         this.foundWatchlistResults = false;
         this.watchlistError = false;
-        this.traktService.fetchWatchlist(item.username).subscribe(function () {
+        var sub = null;
+        switch (item.listType) {
+            case __WEBPACK_IMPORTED_MODULE_5__shared_enums__["a" /* ListTypes */].Watchlist:
+                sub = this.traktService.fetchWatchlist(item.username);
+                break;
+            case __WEBPACK_IMPORTED_MODULE_5__shared_enums__["a" /* ListTypes */].Popular:
+                sub = this.traktService.fetchPopularShows(item.years, item.ratings, item.limit);
+                break;
+            case __WEBPACK_IMPORTED_MODULE_5__shared_enums__["a" /* ListTypes */].Trending:
+                sub = this.traktService.fetchTrendingShows(item.years, item.ratings, item.limit);
+                break;
+            case __WEBPACK_IMPORTED_MODULE_5__shared_enums__["a" /* ListTypes */].Custom:
+                sub = this.traktService.fetchCustomListShows(item.username, item.listName, item.years, item.ratings, item.limit);
+                break;
+        }
+        sub.subscribe(function () {
             _this.foundWatchlistResults = true;
         }, function (error) {
             _this.watchlistError = true;
@@ -517,7 +543,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/settings/settings.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<form novalidate class=\"settings\">\n  <h2>Sonarr Settings</h2>\n  <mat-form-field>\n    <input matInput placeholder=\"Hostname\" required [(ngModel)]=\"settings.hostname\" name=\"hostname\">\n  </mat-form-field>\n  <mat-form-field>\n    <input matInput placeholder=\"Port\" required [(ngModel)]=\"settings.port\" name=\"port\">\n  </mat-form-field>\n  <mat-form-field>\n    <input matInput placeholder=\"Api Key\" required [(ngModel)]=\"settings.apiKey\" name=\"apiKey\">\n  </mat-form-field>\n  <mat-form-field>\n    <input matInput placeholder=\"Update Interval In Minutes\" required [(ngModel)]=\"settings.interval\" name=\"interval\">\n  </mat-form-field>\n  <div style=\"text-align: center;\">\n    <button (click)=\"saveSettings()\" mat-raised-button color=\"primary\">Save</button>\n  </div>\n</form>"
+module.exports = "<form novalidate class=\"settings\" #settingsForm=\"ngForm\">\n  <h2>Sonarr Settings</h2>\n  <mat-form-field>\n    <input matInput placeholder=\"Hostname\" required [(ngModel)]=\"settings.hostname\" name=\"hostname\">\n  </mat-form-field>\n  <mat-form-field>\n    <input matInput placeholder=\"Port\" required [(ngModel)]=\"settings.port\" name=\"port\">\n  </mat-form-field>\n  <mat-form-field>\n    <input matInput placeholder=\"Api Key\" required [(ngModel)]=\"settings.apiKey\" name=\"apiKey\">\n  </mat-form-field>\n  <mat-form-field>\n    <input matInput placeholder=\"Update Interval In Minutes\" required type=\"number\" [(ngModel)]=\"settings.interval\" name=\"interval\" min=\"10\">\n  </mat-form-field>\n  <div style=\"text-align: center;\">\n    <button (click)=\"saveSettings()\" mat-raised-button color=\"primary\" [disabled]=\"settingsForm.invalid\">Save</button>\n  </div>\n</form>"
 
 /***/ }),
 
@@ -574,6 +600,33 @@ var SettingsComponent = (function () {
     return SettingsComponent;
 }());
 
+
+
+/***/ }),
+
+/***/ "../../../../../src/app/shared/enums/index.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__list_types_enum__ = __webpack_require__("../../../../../src/app/shared/enums/list-types.enum.ts");
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_0__list_types_enum__["a"]; });
+
+
+
+/***/ }),
+
+/***/ "../../../../../src/app/shared/enums/list-types.enum.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ListTypes; });
+var ListTypes;
+(function (ListTypes) {
+    ListTypes[ListTypes["Watchlist"] = 1] = "Watchlist";
+    ListTypes[ListTypes["Popular"] = 2] = "Popular";
+    ListTypes[ListTypes["Trending"] = 3] = "Trending";
+    ListTypes[ListTypes["Custom"] = 4] = "Custom";
+})(ListTypes || (ListTypes = {}));
 
 
 /***/ }),
@@ -650,7 +703,25 @@ var TraktService = (function () {
         this.http = http;
     }
     TraktService.prototype.fetchWatchlist = function (username) {
-        return this.http.get("/api/trakt?username=" + username);
+        return this.http.get("/api/trakt/watchlist?username=" + username);
+    };
+    TraktService.prototype.fetchPopularShows = function (years, ratings, limit) {
+        if (years === void 0) { years = ''; }
+        if (ratings === void 0) { ratings = '0-100'; }
+        if (limit === void 0) { limit = 100; }
+        return this.http.get("/api/trakt/popular?years=" + years + "&ratings=" + ratings + "&limit=" + limit);
+    };
+    TraktService.prototype.fetchTrendingShows = function (years, ratings, limit) {
+        if (years === void 0) { years = ''; }
+        if (ratings === void 0) { ratings = '0-100'; }
+        if (limit === void 0) { limit = 100; }
+        return this.http.get("/api/trakt/trending?years=" + years + "&ratings=" + ratings + "&limit=" + limit);
+    };
+    TraktService.prototype.fetchCustomListShows = function (username, listName, years, ratings, limit) {
+        if (years === void 0) { years = ''; }
+        if (ratings === void 0) { ratings = '0-100'; }
+        if (limit === void 0) { limit = 100; }
+        return this.http.get("/api/trakt/custom?username=" + username + "&listName=" + listName + "&years=" + years + "&ratings=" + ratings + "&limit=" + limit);
     };
     TraktService = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["z" /* Injectable */])(),

@@ -21,11 +21,25 @@ export class TraktTVService {
 
     public async findWatchlistShowsByUsername(username): Promise<any> {
         let shows = await this.traktTVRepository.findWatchlistShowsByUsername(username);
-        return shows;
+        return shows.map(s => s.show);
     }
 
     public async findWatchlistByUsername(username): Promise<any> {
         let shows = await this.traktTVRepository.findWatchlistByUsername(username);
         return shows;
     }
+
+    public async findTrendingShows(years: string = '', ratings: string = '0-100', limit: number = 100): Promise<any> {
+        let shows = await this.traktTVRepository.findTrendingShows(years, ratings, limit);
+        return shows.map(s => s.show);
+    }
+
+    public async findPopularShows(years: string = '', ratings: string = '0-100', limit: number = 100): Promise<any> {
+        let shows = await this.traktTVRepository.findPopularShows(years, ratings, limit);
+        return shows;
+    }
+    public async findCustomListShows(username: string, listName: string, years: string = '', ratings: string = '0-100', limit: number = 100): Promise<any> {
+        let shows = await this.traktTVRepository.findCustomListShows(username, listName, years, ratings, limit);
+        return shows.map(s => s.show);
+    }     
 }

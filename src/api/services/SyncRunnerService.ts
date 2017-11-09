@@ -1,8 +1,9 @@
 import { injectable, inject } from "inversify";
 import { plainToClass } from "class-transformer";
+import { setInterval } from "timers";
 
 import { ListService, TraktTVService, SonarrService, SettingsService } from '../services';
-import { setInterval } from "timers";
+import { ListTypesEnum } from "../enums";
 
 @injectable()
 export class SyncRunnerService {
@@ -31,12 +32,24 @@ export class SyncRunnerService {
 
         if (list && list.length > 0) {
             for (let item of list) {
-                if (item.enabled) {
+                if (item.enabled && item.listType === ListTypesEnum.Watchlist) {
                     let seasons = await this.traktTVService.findWatchlistSeasonsByUsername(item.username);
                     this.sonarrService.upsetSeasons(seasons, item);
-                    
+
                     let shows = await this.traktTVService.findWatchlistShowsByUsername(item.username);
-                    this.sonarrService.upsetShows(shows, item);
+                    await this.sonarrService.upsetShows(shows, item);
+
+                } else if (item.enabled && item.listType === ListTypesEnum.Popular) {
+                    let shows = await this.traktTVService.findPopularShows(item.years, item.ratings, item.limit);
+                    await this.sonarrService.upsetShows(shows, item);
+
+                } else if (item.enabled && item.listType === ListTypesEnum.Popular) {
+                    let shows = await this.traktTVService.findTrendingShows(item.years, item.ratings, item.limit);
+                    await this.sonarrService.upsetShows(shows, item);
+
+                }  else if (item.enabled && item.listType === ListTypesEnum.Custom) {
+                    let shows = await this.traktTVService.findCustomListShows(item.username, item.listName, item.years, item.ratings, item.limit);
+                    await this.sonarrService.upsetShows(shows, item);
                 }
             }
         }
