@@ -38,7 +38,6 @@
     "express": "^4.13.4",
     "inversify": "^4.3.0",
     "inversify-express-utils": "^4.0.1",
-    "lodash": "^4.17.4",
     "morgan": "^1.7.0",
     "node-json-db": "^0.7.3",
     "querymen": "^2.0.0",
