@@ -25,7 +25,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, ".container{\n    max-width: 900px;\n    margin: auto;\n    width: 100%;\n    margin-top: 100px;\n}\n\n.mat-toolbar{\n    position: absolute;\n    top: 0;\n    left: 0;\n    width: 100%;\n}\n\n.spacer {\n    -webkit-box-flex: 1;\n        -ms-flex: 1 1 auto;\n            flex: 1 1 auto;\n    text-align: right;\n}", ""]);
+exports.push([module.i, ".container{\n    max-width: 900px;\n    margin: auto;\n    width: 100%;\n    margin-top: 150px;\n}", ""]);
 
 // exports
 
@@ -38,7 +38,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/app.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<!--The content below is only a placeholder and can be replaced.-->\n<mat-toolbar color=\"primary\">\n    <div class=\"spacer\">\n        <a mat-button target=\"_blank\" href=\"https://github.com/preram48/sonarr-trakt-tv\">\n            <img src=\"./assets/github-circle-white-transparent.svg\" />\n        </a>\n    </div>\n</mat-toolbar>\n<div style=\"text-align:center\" class=\"container\">\n    <mat-tab-group>\n        <mat-tab label=\"List\">\n            <app-list></app-list>\n        </mat-tab>\n        <mat-tab label=\"Settings\">\n            <app-settings></app-settings>\n        </mat-tab>\n    </mat-tab-group>\n</div>"
+module.exports = "<!--The content below is only a placeholder and can be replaced.-->\n<app-banner></app-banner>\n<div style=\"text-align:center\" class=\"container\">\n    <mat-tab-group>\n        <mat-tab label=\"List\">\n            <app-list></app-list>\n        </mat-tab>\n        <mat-tab label=\"Settings\">\n            <app-settings></app-settings>\n        </mat-tab>\n    </mat-tab-group>\n</div>"
 
 /***/ }),
 
@@ -88,12 +88,14 @@ var AppComponent = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__list_list_component__ = __webpack_require__("../../../../../src/app/list/list.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__settings_settings_component__ = __webpack_require__("../../../../../src/app/settings/settings.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__list_dialog_list_dialog_component__ = __webpack_require__("../../../../../src/app/list-dialog/list-dialog.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__banner_banner_component__ = __webpack_require__("../../../../../src/app/banner/banner.component.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -113,7 +115,8 @@ var AppModule = (function () {
                 __WEBPACK_IMPORTED_MODULE_6__app_component__["a" /* AppComponent */],
                 __WEBPACK_IMPORTED_MODULE_7__list_list_component__["a" /* ListComponent */],
                 __WEBPACK_IMPORTED_MODULE_8__settings_settings_component__["a" /* SettingsComponent */],
-                __WEBPACK_IMPORTED_MODULE_9__list_dialog_list_dialog_component__["a" /* ListDialogComponent */]
+                __WEBPACK_IMPORTED_MODULE_9__list_dialog_list_dialog_component__["a" /* ListDialogComponent */],
+                __WEBPACK_IMPORTED_MODULE_10__banner_banner_component__["a" /* BannerComponent */]
             ],
             imports: [
                 __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["a" /* BrowserModule */],
@@ -158,6 +161,86 @@ var AppModule = (function () {
         })
     ], AppModule);
     return AppModule;
+}());
+
+
+
+/***/ }),
+
+/***/ "../../../../../src/app/banner/banner.component.css":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, ".banner {\n    width: 100%;\n    background: #f44336;\n    position: absolute;\n    top: 0;\n    left: 0;\n    color: white;\n    text-align: center;\n    z-index: 1;\n    font-family: Roboto;\n}\n\n.banner .error {\n    height: 40px;\n    line-height: 40px;\n    vertical-align: middle;\n}\n\n.spacer {\n    -webkit-box-flex: 1;\n        -ms-flex: 1 1 auto;\n            flex: 1 1 auto;\n    text-align: right;\n}\n\n.icon-container {\n    position: relative;\n}\n\n.icon-container .mat-icon {\n    position: absolute;\n    font-size: 18px;\n    top: 0;\n}", ""]);
+
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
+
+/***/ }),
+
+/***/ "../../../../../src/app/banner/banner.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"banner\">\n  <div class=\"error\" *ngIf=\"showErrorMessage\">\n      <span>Lost connection with Sonarr. Try changing your Sonarr settings under the \"Settings\" tab.</span>\n      <span class=\"icon-container\"><mat-icon>warning</mat-icon></span>\n  </div>\n  <mat-toolbar color=\"primary\">\n      <div class=\"spacer\">\n          <a mat-button target=\"_blank\" href=\"https://github.com/preram48/sonarr-trakt-tv\">\n              <img src=\"./assets/github-circle-white-transparent.svg\" />\n          </a>\n      </div>\n  </mat-toolbar>\n</div>\n"
+
+/***/ }),
+
+/***/ "../../../../../src/app/banner/banner.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return BannerComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__sonarr_service__ = __webpack_require__("../../../../../src/app/sonarr.service.ts");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+var BannerComponent = (function () {
+    function BannerComponent(sonarrService) {
+        this.sonarrService = sonarrService;
+        this.showErrorMessage = false;
+    }
+    BannerComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        setInterval(function () {
+            _this.healthCheck();
+        }, 10000);
+        this.healthCheck();
+    };
+    BannerComponent.prototype.healthCheck = function () {
+        var _this = this;
+        this.sonarrService.fetchProfiles().subscribe(function () {
+            _this.showErrorMessage = false;
+            ;
+        }, function () {
+            _this.showErrorMessage = true;
+        });
+    };
+    BannerComponent = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
+            selector: 'app-banner',
+            template: __webpack_require__("../../../../../src/app/banner/banner.component.html"),
+            styles: [__webpack_require__("../../../../../src/app/banner/banner.component.css")],
+            providers: [__WEBPACK_IMPORTED_MODULE_1__sonarr_service__["a" /* SonarrService */]]
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__sonarr_service__["a" /* SonarrService */]])
+    ], BannerComponent);
+    return BannerComponent;
 }());
 
 
