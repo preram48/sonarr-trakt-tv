@@ -35,7 +35,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 exports.i(__webpack_require__("../../../../css-loader/index.js?{\"sourceMap\":false,\"importLoaders\":1}!../../../../postcss-loader/index.js?{\"ident\":\"postcss\"}!../../../material/prebuilt-themes/purple-green.css"), "");
 
 // module
-exports.push([module.i, "/* You can add global styles to this file, and also import other style files */\n\n\nbody {\n    background: rgba(0,0,0,.87);\n    color: white;\n}\n", ""]);
+exports.push([module.i, "/* You can add global styles to this file, and also import other style files */\n\n\nbody {\n    background: rgba(0,0,0,.87);\n    color: white;\n    font-family: Roboto;\n}\n\nh1, h2 {\n    font-weight: 400;\n}", ""]);
 
 // exports
 

@@ -25,7 +25,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, ".container{\n    max-width: 900px;\n    margin: auto;\n    width: 100%;\n}\n", ""]);
+exports.push([module.i, ".container{\n    max-width: 900px;\n    margin: auto;\n    width: 100%;\n    margin-top: 100px;\n}\n\n.mat-toolbar{\n    position: absolute;\n    top: 0;\n    left: 0;\n    width: 100%;\n}\n\n.spacer {\n    -webkit-box-flex: 1;\n        -ms-flex: 1 1 auto;\n            flex: 1 1 auto;\n    text-align: right;\n}", ""]);
 
 // exports
 
@@ -38,7 +38,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/app.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<!--The content below is only a placeholder and can be replaced.-->\n<div style=\"text-align:center\" class=\"container\">\n    <mat-tab-group>\n        <mat-tab label=\"List\"><app-list></app-list></mat-tab>\n        <mat-tab label=\"Settings\"><app-settings></app-settings></mat-tab>\n      </mat-tab-group>\n</div>"
+module.exports = "<!--The content below is only a placeholder and can be replaced.-->\n<mat-toolbar color=\"primary\">\n    <div class=\"spacer\">\n        <a mat-button target=\"_blank\" href=\"https://github.com/preram48/sonarr-trakt-tv\">\n            <img src=\"./assets/github-circle-white-transparent.svg\" />\n        </a>\n    </div>\n</mat-toolbar>\n<div style=\"text-align:center\" class=\"container\">\n    <mat-tab-group>\n        <mat-tab label=\"List\">\n            <app-list></app-list>\n        </mat-tab>\n        <mat-tab label=\"Settings\">\n            <app-settings></app-settings>\n        </mat-tab>\n    </mat-tab-group>\n</div>"
 
 /***/ }),
 
@@ -119,7 +119,7 @@ var AppModule = (function () {
                 __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["a" /* BrowserModule */],
                 __WEBPACK_IMPORTED_MODULE_1__angular_forms__["c" /* FormsModule */],
                 __WEBPACK_IMPORTED_MODULE_2__angular_http__["b" /* HttpModule */],
-                __WEBPACK_IMPORTED_MODULE_4__angular_platform_browser_animations__["a" /* BrowserAnimationsModule */],
+                __WEBPACK_IMPORTED_MODULE_4__angular_platform_browser_animations__["a" /* NoopAnimationsModule */],
                 __WEBPACK_IMPORTED_MODULE_5__angular_material__["b" /* MatAutocompleteModule */],
                 __WEBPACK_IMPORTED_MODULE_5__angular_material__["c" /* MatButtonModule */],
                 __WEBPACK_IMPORTED_MODULE_5__angular_material__["d" /* MatButtonToggleModule */],
@@ -345,7 +345,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/list/list.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"flex\">\n  <button mat-fab color=\"primary\" class=\"fab-add\" (click)=\"addList()\">\n    <mat-icon>add</mat-icon>\n  </button>\n  <mat-card *ngFor=\"let listItem of list\">\n    <mat-card-content (click)=\"openDialog(listItem)\">\n      <h2>{{listItem.name}}</h2>\n    </mat-card-content>\n    <mat-card-actions>\n      <mat-slide-toggle [checked]=\"listItem.enabled\" (change)=\"saveList(listItem, $event)\" name=\"enabled\">Enabled</mat-slide-toggle>\n      <button (click)=\"deleteList(listItem)\" mat-button>DELETE</button>\n    </mat-card-actions>\n  </mat-card>\n</div>"
+module.exports = "<div class=\"flex\">\n  <button mat-fab color=\"primary\" class=\"fab-add\" (click)=\"addList()\">\n    <mat-icon>add</mat-icon>\n  </button>\n  <mat-card *ngFor=\"let listItem of list\">\n    <mat-card-content (click)=\"openDialog(listItem)\">\n      <h2>{{listItem.name}}</h2>\n    </mat-card-content>\n    <mat-card-actions>\n      <mat-slide-toggle [checked]=\"listItem.enabled\" (change)=\"saveList(listItem, $event)\" name=\"enabled\">Enabled</mat-slide-toggle>\n      <button (click)=\"deleteList(listItem)\" mat-button>DELETE</button>\n    </mat-card-actions>\n  </mat-card>\n  <mat-card *ngIf=\"list.length === 0\">\n    <mat-card-content>    \n      <h2>No List Found</h2>\n    </mat-card-content>\n  </mat-card>\n</div>"
 
 /***/ }),
 
