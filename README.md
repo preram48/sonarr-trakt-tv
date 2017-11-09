@@ -1,9 +1,7 @@
 # Sonarr Trakt TV
 
 ## Introduction
-Sonarr Trakt TV is a program that monitors any trakt.tv watchlist and adds your shows/seasons to Sonarr.
-
-Right now it only supports watchlist but I do plan on adding the trending and popular categories.
+Sonarr Trakt TV is a program that monitors any trakt.tv watch, trending, popular, or popular list and adds the shows/seasons to Sonarr.
 
 ## Cloning from github
 ```bash
