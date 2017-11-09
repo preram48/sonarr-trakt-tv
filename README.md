@@ -21,6 +21,8 @@ Once installed, you can run the server using one of the following options:
 npm run dev
 ```
 
+Go to localhost:9500
+
 ## Docker
 ```bash
 docker build -t preram48/sonarr-trakt-tv .
