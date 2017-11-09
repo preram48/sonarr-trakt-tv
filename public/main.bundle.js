@@ -172,7 +172,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, ".mat-form-field {\n    display: block;\n    width: 350px;\n}", ""]);
+exports.push([module.i, ".mat-form-field {\n    display: block;\n    width: 350px;\n}\n\ndiv.primary {\n    color: #c2185b;\n    margin-top: 20px;\n}", ""]);
 
 // exports
 
@@ -185,7 +185,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/list-dialog/list-dialog.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div style=\"text-align: right;\">\n  <button mat-button (click)=\"close()\">\n    <mat-icon>close</mat-icon>\n  </button>\n</div>\n<form novalidate style=\"text-align: center\"  #listForm=\"ngForm\">\n  <mat-form-field>\n    <input matInput placeholder=\"Name\" required [(ngModel)]=\"listItem.name\" name=\"name\">\n  </mat-form-field>\n  <mat-form-field>\n    <mat-select placeholder=\"List Type\" [(ngModel)]=\"listItem.listType\" name=\"list\" required>\n      <mat-option *ngFor=\"let item of trakList\" [value]=\"item.value\">\n        {{ item.viewValue }}\n      </mat-option>\n    </mat-select>\n  </mat-form-field>\n  <mat-form-field>\n    <mat-select placeholder=\"Quality Profile\" [(ngModel)]=\"listItem.profile\" name=\"profile\" required>\n      <mat-option *ngFor=\"let profile of profiles\" [value]=\"profile.id\">\n        {{ profile.name }}\n      </mat-option>\n    </mat-select>\n  </mat-form-field>\n  <mat-form-field>\n    <mat-select placeholder=\"Folder\" [(ngModel)]=\"listItem.folder\" name=\"folder\" required>\n      <mat-option *ngFor=\"let folder of folders\" [value]=\"folder.path\">\n        {{ folder.path }}\n      </mat-option>\n    </mat-select>\n  </mat-form-field>\n  <mat-form-field>\n    <input matInput placeholder=\"Username\" [(ngModel)]=\"listItem.username\" name=\"username\" required>\n  </mat-form-field>\n  <div>\n    <button (click)=\"saveList(listItem)\" mat-raised-button color=\"primary\" [disabled]=\"listForm.invalid\">save</button>\n  </div>\n</form>"
+module.exports = "<div style=\"text-align: right;\">\n  <button mat-button (click)=\"close()\">\n    <mat-icon>close</mat-icon>\n  </button>\n</div>\n<form novalidate style=\"text-align: center\" #listForm=\"ngForm\">\n  <mat-form-field>\n    <input matInput placeholder=\"Name\" required [(ngModel)]=\"listItem.name\" name=\"name\">\n  </mat-form-field>\n  <mat-form-field>\n    <mat-select placeholder=\"List Type\" [(ngModel)]=\"listItem.listType\" name=\"list\" required>\n      <mat-option *ngFor=\"let item of trakList\" [value]=\"item.value\">\n        {{ item.viewValue }}\n      </mat-option>\n    </mat-select>\n  </mat-form-field>\n  <mat-form-field>\n    <mat-select placeholder=\"Quality Profile\" [(ngModel)]=\"listItem.profile\" name=\"profile\" required>\n      <mat-option *ngFor=\"let profile of profiles\" [value]=\"profile.id\">\n        {{ profile.name }}\n      </mat-option>\n    </mat-select>\n  </mat-form-field>\n  <mat-form-field>\n    <mat-select placeholder=\"Folder\" [(ngModel)]=\"listItem.folder\" name=\"folder\" required>\n      <mat-option *ngFor=\"let folder of folders\" [value]=\"folder.path\">\n        {{ folder.path }}\n      </mat-option>\n    </mat-select>\n  </mat-form-field>\n  <mat-form-field>\n    <input matInput placeholder=\"Username\" [(ngModel)]=\"listItem.username\" name=\"username\" required>\n  </mat-form-field>\n  <div>\n    <button (click)=\"testList(listItem)\" mat-raised-button color=\"primary\" [disabled]=\"listForm.invalid\">Test</button>\n    <button (click)=\"saveList(listItem)\" mat-raised-button color=\"primary\" [disabled]=\"listForm.invalid\">Save</button>\n  </div>\n  <div class=\"primary\" *ngIf=\"foundWatchlistResults\">\n    Watchlist call was successful\n  </div>\n  <div class=\"primary\" *ngIf=\"watchlistError\">\n    No results were returned\n  </div>\n</form>"
 
 /***/ }),
 
@@ -198,6 +198,7 @@ module.exports = "<div style=\"text-align: right;\">\n  <button mat-button (clic
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_material__ = __webpack_require__("../../../material/esm5/material.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__list_service__ = __webpack_require__("../../../../../src/app/list.service.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__sonarr_service__ = __webpack_require__("../../../../../src/app/sonarr.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__trakt_service__ = __webpack_require__("../../../../../src/app/trakt.service.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -214,17 +215,21 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 
 
 
+
 var ListItem = (function () {
     function ListItem() {
     }
     return ListItem;
 }());
 var ListDialogComponent = (function () {
-    function ListDialogComponent(dialogRef, data, listService, sonarrService) {
+    function ListDialogComponent(dialogRef, data, listService, sonarrService, traktService) {
         this.dialogRef = dialogRef;
         this.data = data;
         this.listService = listService;
         this.sonarrService = sonarrService;
+        this.traktService = traktService;
+        this.foundWatchlistResults = false;
+        this.watchlistError = false;
     }
     ListDialogComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -241,6 +246,8 @@ var ListDialogComponent = (function () {
     };
     ListDialogComponent.prototype.saveList = function (item) {
         var _this = this;
+        this.foundWatchlistResults = false;
+        this.watchlistError = false;
         if (item.id) {
             this.listService.updateList(item.id, item).subscribe(function () {
                 _this.close();
@@ -253,16 +260,27 @@ var ListDialogComponent = (function () {
             });
         }
     };
+    ListDialogComponent.prototype.testList = function (item) {
+        var _this = this;
+        this.foundWatchlistResults = false;
+        this.watchlistError = false;
+        this.traktService.fetchWatchlist(item.username).subscribe(function () {
+            _this.foundWatchlistResults = true;
+        }, function (error) {
+            _this.watchlistError = true;
+        });
+    };
     ListDialogComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
             selector: 'app-list-dialog',
             template: __webpack_require__("../../../../../src/app/list-dialog/list-dialog.component.html"),
             styles: [__webpack_require__("../../../../../src/app/list-dialog/list-dialog.component.css")],
-            providers: [__WEBPACK_IMPORTED_MODULE_2__list_service__["a" /* ListService */], __WEBPACK_IMPORTED_MODULE_3__sonarr_service__["a" /* SonarrService */]]
+            providers: [__WEBPACK_IMPORTED_MODULE_2__list_service__["a" /* ListService */], __WEBPACK_IMPORTED_MODULE_3__sonarr_service__["a" /* SonarrService */], __WEBPACK_IMPORTED_MODULE_4__trakt_service__["a" /* TraktService */]]
         }),
         __param(1, Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["y" /* Inject */])(__WEBPACK_IMPORTED_MODULE_1__angular_material__["a" /* MAT_DIALOG_DATA */])),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_material__["k" /* MatDialogRef */], Object, __WEBPACK_IMPORTED_MODULE_2__list_service__["a" /* ListService */],
-            __WEBPACK_IMPORTED_MODULE_3__sonarr_service__["a" /* SonarrService */]])
+            __WEBPACK_IMPORTED_MODULE_3__sonarr_service__["a" /* SonarrService */],
+            __WEBPACK_IMPORTED_MODULE_4__trakt_service__["a" /* TraktService */]])
     ], ListDialogComponent);
     return ListDialogComponent;
 }());
@@ -345,7 +363,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/list/list.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"flex\">\n  <button mat-fab color=\"primary\" class=\"fab-add\" (click)=\"addList()\">\n    <mat-icon>add</mat-icon>\n  </button>\n  <mat-card *ngFor=\"let listItem of list\">\n    <mat-card-content (click)=\"openDialog(listItem)\">\n      <h2>{{listItem.name}}</h2>\n    </mat-card-content>\n    <mat-card-actions>\n      <mat-slide-toggle [checked]=\"listItem.enabled\" (change)=\"saveList(listItem, $event)\" name=\"enabled\">Enabled</mat-slide-toggle>\n      <button (click)=\"deleteList(listItem)\" mat-button>DELETE</button>\n    </mat-card-actions>\n  </mat-card>\n  <mat-card *ngIf=\"list.length === 0\">\n    <mat-card-content>    \n      <h2>No List Found</h2>\n    </mat-card-content>\n  </mat-card>\n</div>"
+module.exports = "<div class=\"flex\">\n  <button mat-fab color=\"primary\" class=\"fab-add\" (click)=\"addList()\">\n    <mat-icon>add</mat-icon>\n  </button>\n  <mat-card *ngFor=\"let listItem of list\">\n    <mat-card-content (click)=\"openDialog(listItem)\">\n      <h2>{{listItem.name}}</h2>\n    </mat-card-content>\n    <mat-card-actions>\n      <mat-slide-toggle color=\"primary\" [checked]=\"listItem.enabled\" (change)=\"saveList(listItem, $event)\" name=\"enabled\">Enabled</mat-slide-toggle>\n      <button (click)=\"deleteList(listItem)\" mat-button>DELETE</button>\n    </mat-card-actions>\n  </mat-card>\n  <mat-card *ngIf=\"list.length === 0\">\n    <mat-card-content>    \n      <h2>No List Found</h2>\n    </mat-card-content>\n  </mat-card>\n</div>"
 
 /***/ }),
 
@@ -599,6 +617,46 @@ var SonarrService = (function () {
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Http */]])
     ], SonarrService);
     return SonarrService;
+}());
+
+
+
+/***/ }),
+
+/***/ "../../../../../src/app/trakt.service.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return TraktService; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__("../../../http/esm5/http.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__ = __webpack_require__("../../../../rxjs/_esm5/add/operator/map.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_mergeMap__ = __webpack_require__("../../../../rxjs/_esm5/add/operator/mergeMap.js");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+var TraktService = (function () {
+    function TraktService(http) {
+        this.http = http;
+    }
+    TraktService.prototype.fetchWatchlist = function (username) {
+        return this.http.get("/api/trakt?username=" + username);
+    };
+    TraktService = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["z" /* Injectable */])(),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Http */]])
+    ], TraktService);
+    return TraktService;
 }());
 
 

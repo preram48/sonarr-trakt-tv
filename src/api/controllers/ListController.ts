@@ -9,7 +9,7 @@ export class ListController implements interfaces.Controller {
     constructor( @inject("ListService") private listService: ListService) { }
 
     @httpGet("/")
-    private async list( @queryParam("username") username: string = ''): Promise<any> {
+    private async list(): Promise<any> {
         return this.listService.findAll();
     }
 

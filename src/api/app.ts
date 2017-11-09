@@ -3,7 +3,7 @@ import express = require('express');
 import { Container } from 'inversify';
 import { interfaces, InversifyExpressServer, TYPE } from 'inversify-express-utils';
 import * as bodyParser from 'body-parser';
-import { ListController, SettingsController, SonarrController } from './controllers';
+import { ListController, SettingsController, SonarrController, TraktTVController } from './controllers';
 import { TraktTVService, SonarrService, ListService, SettingsService, SyncRunnerService } from './services';
 import { TraktTVRepository, SonarrRepository, DBRepository, SettingsDBRepository } from './repositories';
 
@@ -12,6 +12,7 @@ let container = new Container();
 container.bind<interfaces.Controller>(TYPE.Controller).to(ListController).whenTargetNamed('ListController');
 container.bind<interfaces.Controller>(TYPE.Controller).to(SettingsController).whenTargetNamed('SettingsController');
 container.bind<interfaces.Controller>(TYPE.Controller).to(SonarrController).whenTargetNamed('SonarrController');
+container.bind<interfaces.Controller>(TYPE.Controller).to(TraktTVController).whenTargetNamed('TraktTVController');
 container.bind<TraktTVService>('TraktTVService').to(TraktTVService);
 container.bind<TraktTVRepository>('TraktTVRepository').to(TraktTVRepository);
 container.bind<SonarrService>('SonarrService').to(SonarrService);

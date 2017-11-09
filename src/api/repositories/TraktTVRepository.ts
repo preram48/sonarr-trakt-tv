@@ -43,4 +43,12 @@ export class TraktTVRepository {
 
        return watchlist;
     }
+
+    public async findWatchlistByUsername(username): Promise<any> {
+        let watchlist = await this.client.users.watchlist({
+            username: username
+        });
+
+       return watchlist;
+    }
 }

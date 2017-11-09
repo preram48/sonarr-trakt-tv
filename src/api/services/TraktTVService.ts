@@ -23,4 +23,9 @@ export class TraktTVService {
         let shows = await this.traktTVRepository.findWatchlistShowsByUsername(username);
         return shows;
     }
+
+    public async findWatchlistByUsername(username): Promise<any> {
+        let shows = await this.traktTVRepository.findWatchlistByUsername(username);
+        return shows;
+    }
 }
