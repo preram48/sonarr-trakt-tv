@@ -188,7 +188,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/banner/banner.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"banner\">\n    <mat-toolbar class=\"error\" color=\"accent\" *ngIf=\"showErrorMessage\">\n        <mat-icon>warning</mat-icon>\n        <span>Lost connection with Sonarr. Try checking your Sonarr settings under the \"Settings\" tab.</span>\n    </mat-toolbar>\n  <mat-toolbar color=\"primary\">\n      <div class=\"spacer\">\n          <a mat-button target=\"_blank\" href=\"https://github.com/preram48/sonarr-trakt-tv\">\n              <img src=\"./assets/github-circle-white-transparent.svg\" />\n          </a>\n      </div>\n  </mat-toolbar>\n</div>\n"
+module.exports = "<div class=\"banner\">\n    <mat-toolbar class=\"error\" color=\"warn\" *ngIf=\"showErrorMessage\">\n        <mat-icon>warning</mat-icon>\n        <span>Lost connection with Sonarr. Try checking your Sonarr settings under the \"Settings\" tab.</span>\n    </mat-toolbar>\n  <mat-toolbar color=\"primary\">\n      <div class=\"spacer\">\n          <a mat-button target=\"_blank\" href=\"https://github.com/preram48/sonarr-trakt-tv\">\n              <img src=\"./assets/github-circle-white-transparent.svg\" />\n          </a>\n      </div>\n  </mat-toolbar>\n</div>\n"
 
 /***/ }),
 
