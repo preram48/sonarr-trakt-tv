@@ -35,7 +35,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 exports.i(__webpack_require__("../../../../css-loader/index.js?{\"sourceMap\":false,\"importLoaders\":1}!../../../../postcss-loader/index.js?{\"ident\":\"postcss\"}!../../../material/prebuilt-themes/indigo-pink.css"), "");
 
 // module
-exports.push([module.i, "/* You can add global styles to this file, and also import other style files */\n\n\nbody {\n    color: white;\n    font-family: Roboto,\"Helvetica Neue\",sans-serif;\n}\n\nh1, h2 {\n    font-weight: 400;\n}", ""]);
+exports.push([module.i, "/* You can add global styles to this file, and also import other style files */\n\n\nbody {\n    font-family: Roboto,\"Helvetica Neue\",sans-serif;\n}\n\nh1, h2 {\n    font-weight: 400;\n}", ""]);
 
 // exports
 
