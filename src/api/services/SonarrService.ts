@@ -90,7 +90,7 @@ export class SonarrService {
         try {
             await this.sonarrRepository.createSeries(show);
         } catch (error) {
-            console.log(`Failed to add ${show.title}: ${error}`);
+            console.log(`Failed to add ${show.title}: ${JSON.stringify(error)}`);
         }
 
         return show;

@@ -175,7 +175,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, ".banner {\n    width: 100%;\n    background: #f44336;\n    position: absolute;\n    top: 0;\n    left: 0;\n    color: white;\n    text-align: center;\n    z-index: 1;\n    font-family: Roboto;\n}\n\n.banner .error {\n    height: 40px;\n    line-height: 40px;\n    vertical-align: middle;\n}\n\n.spacer {\n    -webkit-box-flex: 1;\n        -ms-flex: 1 1 auto;\n            flex: 1 1 auto;\n    text-align: right;\n}\n\n.icon-container {\n    position: relative;\n}\n\n.icon-container .mat-icon {\n    position: absolute;\n    font-size: 18px;\n    top: 0;\n}", ""]);
+exports.push([module.i, ".banner {\n    width: 100%;\n    position: absolute;\n    top: 0;\n    left: 0;\n    color: white;\n    text-align: center;\n    z-index: 1;\n    font-family: Roboto;\n    font-size: 18px;\n}\n\n.error.mat-toolbar {\n    font-size: 14px;\n    -webkit-box-pack: center;\n        -ms-flex-pack: center;\n            justify-content: center;\n}\n\n.spacer {\n    -webkit-box-flex: 1;\n        -ms-flex: 1 1 auto;\n            flex: 1 1 auto;\n    text-align: right;\n}\n", ""]);
 
 // exports
 
@@ -188,7 +188,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/banner/banner.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"banner\">\n  <div class=\"error\" *ngIf=\"showErrorMessage\">\n      <span>Lost connection with Sonarr. Try checking your Sonarr settings under the \"Settings\" tab.</span>\n      <span class=\"icon-container\"><mat-icon>warning</mat-icon></span>\n  </div>\n  <mat-toolbar color=\"primary\">\n      <div class=\"spacer\">\n          <a mat-button target=\"_blank\" href=\"https://github.com/preram48/sonarr-trakt-tv\">\n              <img src=\"./assets/github-circle-white-transparent.svg\" />\n          </a>\n      </div>\n  </mat-toolbar>\n</div>\n"
+module.exports = "<div class=\"banner\">\n    <mat-toolbar class=\"error\" color=\"accent\" *ngIf=\"showErrorMessage\">\n        <mat-icon>warning</mat-icon>\n        <span>Lost connection with Sonarr. Try checking your Sonarr settings under the \"Settings\" tab.</span>\n    </mat-toolbar>\n  <mat-toolbar color=\"primary\">\n      <div class=\"spacer\">\n          <a mat-button target=\"_blank\" href=\"https://github.com/preram48/sonarr-trakt-tv\">\n              <img src=\"./assets/github-circle-white-transparent.svg\" />\n          </a>\n      </div>\n  </mat-toolbar>\n</div>\n"
 
 /***/ }),
 
