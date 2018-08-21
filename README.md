@@ -13,6 +13,10 @@ cd sonarr-trakt-tv
 
 # Install dependencies
 npm install
+npm install -g typescript
+
+# Compile TypeScript to JavaScript
+tsc
 ```
 
 ## Running the server
