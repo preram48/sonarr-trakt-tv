@@ -1,0 +1,19 @@
+<form novalidate class="settings" #settingsForm="ngForm">
+    <h2>Sonarr Settings</h2>
+    <mat-form-field>
+        <input matInput placeholder="Hostname" required [(ngModel)]="settings.hostname" name="hostname">
+    </mat-form-field>
+    <mat-form-field>
+        <input matInput placeholder="Port" required [(ngModel)]="settings.port" name="port">
+    </mat-form-field>
+    <mat-form-field>
+        <input matInput placeholder="Api Key" required [(ngModel)]="settings.apiKey" name="apiKey">
+    </mat-form-field>
+    <mat-form-field>
+        <input matInput placeholder="Update Interval In Minutes" required type="number" [(ngModel)]="settings.interval" name="interval"
+            min="10">
+    </mat-form-field>
+    <div style="text-align: center;">
+        <button (click)="saveSettings()" mat-raised-button color="primary" [disabled]="settingsForm.invalid">Save</button>
+    </div>
+</form>

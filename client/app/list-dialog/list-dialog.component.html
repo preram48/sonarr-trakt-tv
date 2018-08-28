@@ -1,0 +1,47 @@
+<div style="text-align: right;">
+    <button mat-button (click)="close()">
+            <mat-icon>close</mat-icon>
+    </button>
+</div>
+<form novalidate style="text-align: center" #listForm="ngForm">
+    <mat-form-field>
+        <input matInput placeholder="Name" required [(ngModel)]="listItem.name" name="name">
+    </mat-form-field>
+    <mat-form-field>
+        <mat-select placeholder="List Type" [(ngModel)]="listItem.listType" name="list" required>
+            <mat-option *ngFor="let item of trakList" [value]="item.value"> {{ item.viewValue }} </mat-option>
+        </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+        <mat-select placeholder="Quality Profile" [(ngModel)]="listItem.profile" name="profile" required>
+            <mat-option *ngFor="let profile of profiles" [value]="profile.id"> {{ profile.name }} </mat-option>
+        </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+        <mat-select placeholder="Folder" [(ngModel)]="listItem.folder" name="folder" required>
+            <mat-option *ngFor="let folder of folders" [value]="folder.path"> {{ folder.path }} </mat-option>
+        </mat-select>
+    </mat-form-field>
+    <mat-form-field *ngIf="listItem.listType === 1 || listItem.listType === 4">
+        <input matInput placeholder="Username" [(ngModel)]="listItem.username" name="username" required>
+    </mat-form-field>
+    <mat-form-field *ngIf="listItem.listType === 4">
+        <input matInput placeholder="List Name" [(ngModel)]="listItem.listName" name="years" required>
+    </mat-form-field>
+    <mat-form-field>
+        <input matInput placeholder="Rating Range (0-100)" [(ngModel)]="listItem.score" name="score">
+    </mat-form-field>
+    <mat-form-field>
+        <input matInput placeholder="Limit (0-100)" [(ngModel)]="listItem.limit" name="limit">
+    </mat-form-field>
+    <mat-form-field>
+        <input matInput placeholder="Years" [(ngModel)]="listItem.years" name="years">
+    </mat-form-field>
+    <mat-slide-toggle name="monitor" [(ngModel)]="listItem.monitor">Monitor</mat-slide-toggle>
+    <div>
+        <button (click)="testList(listItem)" mat-raised-button color="primary" [disabled]="listForm.invalid">Test</button>
+        <button (click)="saveList(listItem)" mat-raised-button color="primary" [disabled]="listForm.invalid">Save</button>
+    </div>
+    <div class="primary" *ngIf="foundWatchlistResults"> Watchlist call was successful </div>
+    <div class="primary" *ngIf="watchlistError"> No results were returned </div>
+</form>

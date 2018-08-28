@@ -1,0 +1,27 @@
+.fab-add {
+  position: fixed !important;
+  bottom: 50px !important;
+  right: 50px !important;
+}
+.flex {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+.mat-card {
+  -webkit-box-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  max-width: 350px;
+  min-width: 350px;
+  margin: 15px;
+  height: 100%;
+}
+.mat-card-content {
+  cursor: pointer;
+}

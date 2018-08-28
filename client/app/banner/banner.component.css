@@ -1,0 +1,23 @@
+.banner {
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: white;
+  text-align: center;
+  z-index: 1;
+  font-family: Roboto;
+  font-size: 18px;
+}
+.error.mat-toolbar {
+  font-size: 14px;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+.spacer {
+  -webkit-box-flex: 1;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  text-align: right;
+}
