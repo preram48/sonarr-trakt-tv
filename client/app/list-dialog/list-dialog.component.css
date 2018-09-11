@@ -1,0 +1,12 @@
+.mat-form-field {
+  display: block;
+  width: 350px;
+}
+div.primary {
+  color: #c2185b;
+  margin-top: 20px;
+}
+
+button {
+    margin: 20px;
+}

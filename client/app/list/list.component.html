@@ -1,0 +1,19 @@
+<div class="flex">
+    <button mat-fab color="primary" class="fab-add" (click)="addList()">
+        <mat-icon>add</mat-icon>
+    </button>
+    <mat-card *ngFor="let listItem of list">
+        <mat-card-content (click)="openDialog(listItem)">
+            <h2>{{listItem.name}}</h2>
+        </mat-card-content>
+        <mat-card-actions>
+            <mat-slide-toggle color="primary" [checked]="listItem.enabled" (change)="saveList(listItem, $event)" name="enabled">Enabled</mat-slide-toggle>
+            <button (click)="deleteList(listItem)" mat-button>DELETE</button>
+        </mat-card-actions>
+    </mat-card>
+    <mat-card *ngIf="list.length === 0">
+        <mat-card-content>
+            <h2>No List Found</h2>
+        </mat-card-content>
+    </mat-card>
+</div>

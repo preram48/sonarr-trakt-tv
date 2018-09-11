@@ -1,0 +1,13 @@
+<div class="banner">
+    <mat-toolbar class="error" color="warn" *ngIf="showErrorMessage">
+        <mat-icon>warning</mat-icon>
+        <span>Lost connection with Sonarr. Try checking your Sonarr settings under the "Settings" tab.</span>
+    </mat-toolbar>
+    <mat-toolbar color="primary">
+        <div class="spacer">
+            <a mat-button target="_blank" href="https://github.com/preram48/sonarr-trakt-tv">
+                <img src="./assets/github-circle-white-transparent.svg" />
+            </a>
+        </div>
+    </mat-toolbar>
+</div>
