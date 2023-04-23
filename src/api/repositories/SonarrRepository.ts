@@ -17,8 +17,19 @@ export class SonarrRepository {
 
     public async updateSeries(series) {
         let settings = await this.settingsDBRepository.findAll();
-        let response = await requestify.put(`http://${settings.hostname}:${settings.port}/api/series/${series.id}?apikey=${settings.apiKey}`, series)
+        let response = await requestify.put(`http://${settings.hostname}:${settings.port}/api/series/${series.id}?apikey=${settings.apiKey}`, series);
         return response.getBody();
+    }
+
+    public async searchMissing(){
+        let settings = await this.settingsDBRepository.findAll();
+        requestify.request(`http://${settings.hostname}:${settings.port}/api/command?apikey=${settings.apiKey}`, {
+            method: 'POST',
+            body: {name: "missingEpisodeSearch"},
+            dataType: 'json'
+        }).then(function (response) {
+            response.getBody();
+        });
     }
 
     public async findAllSeries() {
